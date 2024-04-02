@@ -1,0 +1,11 @@
+<project name="rateguard4j" default="build" xmlns:artifact="antlib:org.apache.maven.artifact.ant">
+
+    <!-- Invoke Maven to clean and package the project -->
+    <target name="build" >
+        <exec executable="mvn" failonerror="true">
+            <arg value="clean"/>
+            <arg value="package"/>
+        </exec>
+    </target>
+
+</project>

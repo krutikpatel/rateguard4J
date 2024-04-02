@@ -1,2 +1,2 @@
 # rateguard
-API rate limiter based on redis
+API rate limiter java lib based on redis
