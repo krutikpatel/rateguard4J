@@ -17,7 +17,7 @@ import io.lettuce.core.api.sync.RedisScriptingCommands;
 //@ThreadSafe
 public class TokenWindowRateLimiter implements RateLimiter {
     private static final Logger LOG = LoggerFactory.getLogger(TokenWindowRateLimiter.class);
-    private static final String SCRIPT_NAME = "orig.lua";
+    private static final String SCRIPT_NAME = "TokenBucket.lua";
     private TokenWindowParams tokenWindowParams;
 
     public TokenWindowScriptArgsFactory tokenWindowScriptArgsFactory = new TokenWindowScriptArgsFactory();
