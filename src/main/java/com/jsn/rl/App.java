@@ -56,7 +56,11 @@ public class App {
         long startTime = System.currentTimeMillis();
         // Use the connection...
         try {
-            TokenWindowRateLimiter trl2 = new TokenWindowRateLimiter(connection);
+            TokenWindowRateLimiter trl2 = new TokenWindowRateLimiter.Builder()
+                .withConnection(connection)
+                .withCapacity(100)
+                .withReplenishRate(200)
+                .build();;
             trl2.performRateLimitOnMultiRequest("11",50);
         } catch (Exception e) {
             e.printStackTrace();

@@ -25,7 +25,11 @@ public class TokenWindowRateLimiterTest {
         long startTime = System.currentTimeMillis();
         // Use the connection...
         try {
-            RateLimiter trl = new TokenWindowRateLimiter(connection);
+            RateLimiter trl = new TokenWindowRateLimiter.Builder()
+                .withConnection(connection)
+                .withCapacity(100)
+                .withReplenishRate(200)
+                .build();
             testCheckRequestRateLimiter(trl);
         } catch (Exception e) {
             LOG.error("Exception "+e);
