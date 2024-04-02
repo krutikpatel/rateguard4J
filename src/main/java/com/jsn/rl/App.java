@@ -1,7 +1,7 @@
 package com.jsn.rl;
 
 import com.jsn.rl.tokenwindowratelimiter.RateLimitException;
-import com.jsn.rl.tokenwindowratelimiter.TokenWindowRateLimiter2;
+import com.jsn.rl.tokenwindowratelimiter.TokenWindowRateLimiter;
 
 import io.lettuce.core.RedisClient;
 import io.lettuce.core.api.StatefulRedisConnection;
@@ -56,40 +56,14 @@ public class App {
         long startTime = System.currentTimeMillis();
         // Use the connection...
         try {
-            TokenWindowRateLimiter2 trl2 = new TokenWindowRateLimiter2(connection);
-            trl2.testCheckRequestRateLimiter();
+            TokenWindowRateLimiter trl2 = new TokenWindowRateLimiter(connection);
+            trl2.performRateLimitOnMultiRequest("11",50);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         long endTime = System.currentTimeMillis();
         System.out.println("Total time taken: " + (endTime - startTime) + "ms");
-
-        /*
-       TRL2 is slwoer than TRL. TRL2 is reusing loaded script. TRL is loading script every time.
-
-        //trl.testCheckRequestRateLimiter2(); to see behave over seconds 
-        trl.testCheckRequestRateLimiter();//to see behave within a second. still depends if test started when within that second. test will fail if second num changed during the loop run
-
-        
-        //sleep for 2 seconds
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        TokenWindowRateLimiter trl = new TokenWindowRateLimiter(connection);
-        startTime = System.currentTimeMillis();
-        trl.testCheckRequestRateLimiter();//to see behave within a second. still depends if test started when within that second. test will fail if second num changed during the loop run
-        endTime = System.currentTimeMillis();
-        System.out.println("Total time taken: " + (endTime - startTime) + "ms");
-
-
-        // Don't forget to close the connection and the client when you're done
-        connection.close();
-        redisClient.shutdown();
-        */  
 
     }
 }

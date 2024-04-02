@@ -1,19 +1,10 @@
 package com.jsn.rl.tokenwindowratelimiter.util;
 
-import io.lettuce.core.ScriptOutputType;
-import io.lettuce.core.api.StatefulRedisConnection;
-import io.lettuce.core.api.sync.RedisScriptingCommands;
-import io.lettuce.core.cluster.api.StatefulRedisClusterConnection;
-
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.URI;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +13,9 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.jsn.rl.tokenwindowratelimiter.TokenWindowRateLimiter2;
+import io.lettuce.core.ScriptOutputType;
+import io.lettuce.core.api.StatefulRedisConnection;
+import io.lettuce.core.api.sync.RedisScriptingCommands;
 
 public class RedisScriptHelper {
     private static final Logger LOG = LoggerFactory.getLogger(RedisScriptHelper.class);
@@ -35,7 +28,6 @@ public class RedisScriptHelper {
 
     public String loadScript(String scriptName) throws IOException {
         String script = readScriptFile(scriptName);
-        //LOG.info("<<<<<>>>>>>>script: {}", script);
         RedisScriptingCommands<String, String> scriptingCommands = connection.sync();
         String sha1 = scriptingCommands.scriptLoad(script);
 
